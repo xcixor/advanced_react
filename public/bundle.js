@@ -100,6 +100,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -117,6 +119,13 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "articleActions", {
+      lookupAuthor: function lookupAuthor(authorId) {
+        return _this.state.authors[authorId];
+      }
+    });
+
     _this.state = {
       articles: api.getArticles(),
       authors: api.getAuthors()
@@ -129,7 +138,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_3__.default, {
         articles: this.state.articles,
-        authors: this.state.authors
+        articleActions: this.articleActions
       });
     }
   }]);
@@ -161,7 +170,8 @@ var dateDisplay = function dateDisplay(dateString) {
 
 var Article = function Article(props) {
   var article = props.article,
-      author = props.author;
+      actions = props.actions;
+  var author = actions.lookupAuthor(article.authorId);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "article shadow"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, article.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -200,7 +210,7 @@ var ArticleList = function ArticleList(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Article__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: article.id,
       article: article,
-      author: props.authors[article.authorId]
+      actions: props.articleActions
     });
   }));
 };
