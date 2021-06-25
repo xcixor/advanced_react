@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleList renders correctly 1`] = `
+<div
+  className="article-list"
+>
+  <h2
+    className="page-head"
+  >
+    Article List
+  </h2>
+  <div
+    className="article shadow"
+  >
+    <h3 />
+    <div
+      className="small-text"
+    >
+      Invalid Date
+    </div>
+    <div>
+      <a
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+         
+      </a>
+    </div>
+    <div>
+      <p />
+    </div>
+  </div>
+  <div
+    className="article shadow"
+  >
+    <h3 />
+    <div
+      className="small-text"
+    >
+      Invalid Date
+    </div>
+    <div>
+      <a
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+         
+      </a>
+    </div>
+    <div>
+      <p />
+    </div>
+  </div>
+</div>
+`;
