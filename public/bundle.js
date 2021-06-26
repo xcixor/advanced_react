@@ -1,17 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./lib/testData.json":
-/*!***************************!*\
-  !*** ./lib/testData.json ***!
-  \***************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"data":{"articles":[{"id":"95c12a8f6c88953ca8f8a39da25546e6","title":"Introducing React\'s Error Code System","date":"Mon Jul 11 2016 00:00:00 GMT+0000 (UTC)","authorId":"2c6aa2cfe3449467d329fa17d6ea230f","body":"Building a better developer experience has been one of the things that React deeply cares about, and a crucial part of it is to detect anti-patterns/potential errors early and provide helpful error messages when things (may) go wrong. However, most of these only exist in development mode; in production, we avoid having extra expensive assertions and sending down full error messages in order to reduce the number of bytes sent over the wire."},{"id":"cc7781c085cf37aabf120098085ff60c","title":"Mixins Considered Harmful","date":"Wed Jul 13 2016 00:00:00 GMT+0000 (UTC)","authorId":"78ae672985c41fae0ecde0133f41bbfa","body":"“How do I share the code between several components?” is one of the first questions that people ask when they learn React. Our answer has always been to use component composition for code reuse. You can define a component and use it in several other components. \\nIt is not always obvious how a certain pattern can be solved with composition. React is influenced by functional programming but it came into the field that was dominated by object-oriented libraries. It was hard for engineers both inside and outside of Facebook to give up on the patterns they were used to."},{"id":"0a9afe5bb4ecbf4f7f1c77611e9bf1f9","title":"Create Apps with No Configuration","date":"Fri Jul 22 2016 00:00:00 GMT+0000 (UTC)","authorId":"78ae672985c41fae0ecde0133f41bbfa","body":"Create React App is a new officially supported way to create single-page React applications. It offers a modern build setup with no configuration. \\n\\nGetting Starte \\nInstallation \\nFirst, install the global package:"},{"id":"9b72140f27e62670dd7bdd1a9f61b48e","title":"Relay: State of the State","date":"Fri Aug 05 2016 00:00:00 GMT+0000 (UTC)","authorId":"335fb02ec8f76c8515821ac9f266d276","body":"This month marks a year since we released Relay and we\'d like to share an update on the project and what\'s next. \\nA Year In Review \\nA year after launch, we\'re incredibly excited to see an active community forming around Relay and that companies such as Twitter are using Relay in production:"},{"id":"f4ab6de6e61c86f03f6fef46f7c407f1","title":"React v15.5.0","date":"Fri Apr 07 2017 00:00:00 GMT+0000 (UTC)","authorId":"d85577ea34ae50f2dac5347b5219aa23","body":"It\'s been exactly one year since the last breaking change to React. Our next major release, React 16, will include some exciting improvements, including a complete rewrite of React\'s internals. We take stability seriously, and are committed to bringing those improvements to all of our users with minimal effort.\\n To that end, today we\'re releasing React 15.5.0."}],"authors":[{"id":"d85577ea34ae50f2dac5347b5219aa23","firstName":"Andrew","lastName":"Clark","website":"https://twitter.com/acdlite"},{"id":"2c6aa2cfe3449467d329fa17d6ea230f","firstName":"Keyan","lastName":"Zhang","website":"https://twitter.com/keyanzhang"},{"id":"78ae672985c41fae0ecde0133f41bbfa","firstName":"Dan","lastName":"Abramov","website":"https://twitter.com/dan_abramov"},{"id":"335fb02ec8f76c8515821ac9f266d276","firstName":"Joseph","lastName":"Savona","website":"https://twitter.com/en_JS"}]}}');
-
-/***/ }),
-
 /***/ "./lib/components/App.js":
 /*!*******************************!*\
   !*** ./lib/components/App.js ***!
@@ -24,10 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! state-api */ "./lib/state-api/lib/index.js");
-/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(state_api__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _testData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../testData */ "./lib/testData.json");
-/* harmony import */ var _ArticleList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ArticleList */ "./lib/components/ArticleList.js");
+/* harmony import */ var _ArticleList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticleList */ "./lib/components/ArticleList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55,9 +41,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-var api = new (state_api__WEBPACK_IMPORTED_MODULE_1___default())(_testData__WEBPACK_IMPORTED_MODULE_2__.data);
-
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -68,27 +51,23 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, App);
 
-    _this = _super.call(this);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _defineProperty(_assertThisInitialized(_this), "articleActions", {
-      lookupAuthor: function lookupAuthor(authorId) {
-        return _this.state.authors[authorId];
-      }
-    });
+    _this = _super.call.apply(_super, [this].concat(args));
 
-    _this.state = {
-      articles: api.getArticles(),
-      authors: api.getAuthors()
-    };
+    _defineProperty(_assertThisInitialized(_this), "state", _this.props.store.getState());
+
     return _this;
   }
 
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_3__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
         articles: this.state.articles,
-        articleActions: this.articleActions
+        store: this.props.store
       });
     }
   }]);
@@ -120,8 +99,8 @@ var dateDisplay = function dateDisplay(dateString) {
 
 var Article = function Article(props) {
   var article = props.article,
-      actions = props.actions;
-  var author = actions.lookupAuthor(article.authorId);
+      store = props.store;
+  var author = store.lookupAuthor(article.authorId);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "article shadow"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, article.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -162,7 +141,7 @@ var ArticleList = function ArticleList(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Article__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: article.id,
       article: article,
-      actions: props.articleActions
+      store: props.store
     });
   }));
 };
@@ -177,9 +156,12 @@ var ArticleList = function ArticleList(props) {
   \************************************/
 /***/ ((module) => {
 
-module.exports = class DataApi {
+module.exports = class StateApi {
   constructor(rawData) {
-    this.rawData = rawData;
+    this.data = {
+      articles: this.mapIntoObject(rawData.articles),
+      authors: this.mapIntoObject(rawData.authors)
+    };
   }
 
   mapIntoObject(arr) {
@@ -189,15 +171,13 @@ module.exports = class DataApi {
     }, {});
   }
 
-  getArticles() {
-    return this.mapIntoObject(this.rawData.articles);
-  }
-
-  getAuthors() {
-    return this.mapIntoObject(this.rawData.authors);
-  }
-
-}; // export default DataApi;
+  getState = () => {
+    return this.data;
+  };
+  lookupAuthor = authorId => {
+    return this.data.authors[authorId];
+  };
+}; // export default StateApi;
 
 /***/ }),
 
@@ -40842,10 +40822,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/App */ "./lib/components/App.js");
+/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! state-api */ "./lib/state-api/lib/index.js");
+/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(state_api__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(components_App__WEBPACK_IMPORTED_MODULE_2__.default, null), document.getElementById('root'));
+
+var store = new (state_api__WEBPACK_IMPORTED_MODULE_3___default())(window.initialData);
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(components_App__WEBPACK_IMPORTED_MODULE_2__.default, {
+  store: store
+}), document.getElementById('root'));
 })();
 
 /******/ })()

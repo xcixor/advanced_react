@@ -8,10 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Advanced React</title>
+  <script type="text/javascript">
+  window.initialData = <%- JSON.stringify(initialData) -%>
+  </script>
 </head>
 <body>
-  <div id="root"><%- initialContent -%></div>
+  <div id="root"><%- initialMarkup -%></div>
   <script src="/bundle.js" charset="utf-8"></script>
 </body>
 </html>
