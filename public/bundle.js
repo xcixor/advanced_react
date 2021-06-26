@@ -12,57 +12,6 @@ module.exports = JSON.parse('{"data":{"articles":[{"id":"95c12a8f6c88953ca8f8a39
 
 /***/ }),
 
-/***/ "./lib/DataApi.js":
-/*!************************!*\
-  !*** ./lib/DataApi.js ***!
-  \************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var DataApi = /*#__PURE__*/function () {
-  function DataApi(rawData) {
-    _classCallCheck(this, DataApi);
-
-    this.rawData = rawData;
-  }
-
-  _createClass(DataApi, [{
-    key: "mapIntoObject",
-    value: function mapIntoObject(arr) {
-      return arr.reduce(function (acc, curr) {
-        acc[curr.id] = curr;
-        return acc;
-      }, {});
-    }
-  }, {
-    key: "getArticles",
-    value: function getArticles() {
-      return this.mapIntoObject(this.rawData.articles);
-    }
-  }, {
-    key: "getAuthors",
-    value: function getAuthors() {
-      return this.mapIntoObject(this.rawData.authors);
-    }
-  }]);
-
-  return DataApi;
-}();
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataApi);
-
-/***/ }),
-
 /***/ "./lib/components/App.js":
 /*!*******************************!*\
   !*** ./lib/components/App.js ***!
@@ -75,7 +24,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _DataApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../DataApi */ "./lib/DataApi.js");
+/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! state-api */ "./lib/state-api/lib/index.js");
+/* harmony import */ var state_api__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(state_api__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _testData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../testData */ "./lib/testData.json");
 /* harmony import */ var _ArticleList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ArticleList */ "./lib/components/ArticleList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -106,7 +56,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var api = new _DataApi__WEBPACK_IMPORTED_MODULE_1__.default(_testData__WEBPACK_IMPORTED_MODULE_2__.data);
+var api = new (state_api__WEBPACK_IMPORTED_MODULE_1___default())(_testData__WEBPACK_IMPORTED_MODULE_2__.data);
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -218,6 +168,36 @@ var ArticleList = function ArticleList(props) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArticleList);
+
+/***/ }),
+
+/***/ "./lib/state-api/lib/index.js":
+/*!************************************!*\
+  !*** ./lib/state-api/lib/index.js ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = class DataApi {
+  constructor(rawData) {
+    this.rawData = rawData;
+  }
+
+  mapIntoObject(arr) {
+    return arr.reduce((acc, curr) => {
+      acc[curr.id] = curr;
+      return acc;
+    }, {});
+  }
+
+  getArticles() {
+    return this.mapIntoObject(this.rawData.articles);
+  }
+
+  getAuthors() {
+    return this.mapIntoObject(this.rawData.authors);
+  }
+
+}; // export default DataApi;
 
 /***/ }),
 
@@ -40762,6 +40742,18 @@ if (false) {} else {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
