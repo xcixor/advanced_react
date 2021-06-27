@@ -67,10 +67,8 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", _this.props.store.getState());
 
-    _defineProperty(_assertThisInitialized(_this), "setSearchTerm", function (searchTerm) {
-      _this.setState({
-        searchTerm: searchTerm
-      });
+    _defineProperty(_assertThisInitialized(_this), "onStoreChange", function () {
+      _this.setState(_this.props.store.getState());
     });
 
     return _this;
@@ -82,6 +80,16 @@ var App = /*#__PURE__*/function (_React$Component) {
       return {
         store: this.props.store
       };
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.subscriptionId = this.props.store.subscribe(this.onStoreChange);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.store.unsubscribe(this.subscriptionId);
     }
   }, {
     key: "render",
@@ -97,7 +105,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.default, {
-        doSearch: this.setSearchTerm
+        doSearch: this.props.store.setSearchTerm
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
         articles: articles,
         store: this.props.store
@@ -391,6 +399,8 @@ module.exports = class StateApi {
       authors: this.mapIntoObject(rawData.authors),
       searchTerm: ''
     };
+    this.subscriptions = {};
+    this.lastSubscriptionId = 0;
   }
 
   mapIntoObject(arr) {
@@ -405,6 +415,28 @@ module.exports = class StateApi {
   };
   lookupAuthor = authorId => {
     return this.data.authors[authorId];
+  };
+  mergeWithState = stateChange => {
+    this.data = { ...this.data,
+      ...stateChange
+    };
+    this.notifySubscribers();
+  };
+  setSearchTerm = searchTerm => {
+    this.mergeWithState({
+      searchTerm
+    });
+  };
+  subscribe = cb => {
+    this.lastSubscriptionId++;
+    this.subscriptions[this.lastSubscriptionId] = cb;
+    return this.lastSubscriptionId;
+  };
+  unsubscribe = subscriptionId => {
+    delete this.subscriptions[subscriptionId];
+  };
+  notifySubscribers = () => {
+    Object.values(this.subscriptions).forEach(cb => cb());
   };
 }; // export default StateApi;
 
