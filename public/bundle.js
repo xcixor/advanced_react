@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ArticleList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticleList */ "./lib/components/ArticleList.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,6 +43,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -63,6 +66,13 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      return {
+        store: this.props.store
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -74,6 +84,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   return App;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+_defineProperty(App, "childContextTypes", {
+  store: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)
+});
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
@@ -100,9 +114,9 @@ var dateDisplay = function dateDisplay(dateString) {
   return new Date(dateString).toDateString();
 };
 
-var Article = function Article(props) {
-  var article = props.article,
-      store = props.store;
+var Article = function Article(props, _ref) {
+  var store = _ref.store;
+  var article = props.article;
   var author = store.lookupAuthor(article.authorId);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "article shadow"
@@ -121,6 +135,9 @@ Article.propTypes = {
     title: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired),
     body: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired)
   })
+};
+Article.contextTypes = {
+  store: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Article);
 
@@ -150,8 +167,7 @@ var ArticleList = function ArticleList(props) {
   }, "Article List"), Object.values(props.articles).map(function (article) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Article__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: article.id,
-      article: article,
-      store: props.store
+      article: article
     });
   }));
 };
