@@ -9,7 +9,7 @@ exports[`ArticleList renders correctly 1`] = `
   >
     Article List
   </h2>
-  <Article
+  <ArticleContainer
     article={
       Object {
         "id": "a",
@@ -17,7 +17,7 @@ exports[`ArticleList renders correctly 1`] = `
     }
     key="a"
   />
-  <Article
+  <ArticleContainer
     article={
       Object {
         "id": "b",

@@ -107,6 +107,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -114,9 +116,9 @@ var dateDisplay = function dateDisplay(dateString) {
   return new Date(dateString).toDateString();
 };
 
-var Article = function Article(props, _ref) {
-  var store = _ref.store;
-  var article = props.article;
+var Article = function Article(props) {
+  var article = props.article,
+      store = props.store;
   var author = store.lookupAuthor(article.authorId);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "article shadow"
@@ -136,10 +138,18 @@ Article.propTypes = {
     body: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired)
   })
 };
-Article.contextTypes = {
+
+var ArticleContainer = function ArticleContainer(props, _ref) {
+  var store = _ref.store;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Article, _extends({}, props, {
+    store: store
+  }));
+};
+
+ArticleContainer.contextTypes = {
   store: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object)
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Article);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArticleContainer);
 
 /***/ }),
 
