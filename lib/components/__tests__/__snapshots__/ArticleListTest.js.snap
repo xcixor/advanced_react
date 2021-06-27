@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleList renders correctly 1`] = `
+<div
+  className="article-list"
+>
+  <h2
+    className="page-head"
+  >
+    Article List
+  </h2>
+  <ArticleContainer
+    article={
+      Object {
+        "id": "a",
+      }
+    }
+    key="a"
+  />
+  <ArticleContainer
+    article={
+      Object {
+        "id": "b",
+      }
+    }
+    key="b"
+  />
+</div>
+`;
