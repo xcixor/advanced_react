@@ -100,18 +100,16 @@ var App = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           articles = _this$state.articles,
           searchTerm = _this$state.searchTerm;
+      var searchRE = new RegExp(searchTerm, 'i');
 
       if (searchTerm) {
         articles = lodash_pickby__WEBPACK_IMPORTED_MODULE_4___default()(articles, function (value) {
-          return value.title.match(searchTerm) || value.body.match(searchTerm);
+          return value.title.match(searchRE) || value.body.match(searchRE);
         });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Timestamp__WEBPACK_IMPORTED_MODULE_5__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.default, {
-        doSearch: this.props.store.setSearchTerm
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
-        articles: articles,
-        store: this.props.store
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Timestamp__WEBPACK_IMPORTED_MODULE_5__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
+        articles: articles
       }));
     }
   }]);
@@ -229,6 +227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash.debounce */ "./node_modules/lodash.debounce/index.js");
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storeProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./storeProvider */ "./lib/components/storeProvider.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -256,6 +255,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var SearchBar = /*#__PURE__*/function (_React$Component) {
   _inherits(SearchBar, _React$Component);
 
@@ -277,7 +277,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "doSearch", lodash_debounce__WEBPACK_IMPORTED_MODULE_1___default()(function () {
-      _this.props.doSearch(_this.state.searchTerm);
+      _this.props.store.setSearchTerm(_this.state.searchTerm);
     }, 600));
 
     _defineProperty(_assertThisInitialized(_this), "handleSearch", function (event) {
@@ -307,7 +307,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
   return SearchBar;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBar);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_storeProvider__WEBPACK_IMPORTED_MODULE_2__.default)()(SearchBar));
 
 /***/ }),
 
@@ -425,7 +425,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var storeProvider = function storeProvider(extraProps) {
+var storeProvider = function storeProvider() {
+  var extraProps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
+    return {};
+  };
   return function (Component) {
     var _class, _temp;
 
@@ -446,7 +449,9 @@ var storeProvider = function storeProvider(extraProps) {
         _this = _super.call.apply(_super, [this].concat(args));
 
         _defineProperty(_assertThisInitialized(_this), "onStoreChange", function () {
-          _this.forceUpdate();
+          if (_this.subscriptionId) {
+            _this.forceUpdate();
+          }
         });
 
         return _this;
@@ -460,7 +465,8 @@ var storeProvider = function storeProvider(extraProps) {
       }, {
         key: "componentWillUnmount",
         value: function componentWillUnmount() {
-          this.props.store.unsubscribe(this.subscriptionId);
+          this.context.store.unsubscribe(this.subscriptionId);
+          this.subscriptionId = null;
         }
       }, {
         key: "render",
