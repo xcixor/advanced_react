@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SearchBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SearchBar */ "./lib/components/SearchBar.js");
 /* harmony import */ var lodash_pickby__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash.pickby */ "./node_modules/lodash.pickby/index.js");
 /* harmony import */ var lodash_pickby__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_pickby__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Timestamp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Timestamp */ "./lib/components/Timestamp.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,6 +43,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -85,6 +87,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.subscriptionId = this.props.store.subscribe(this.onStoreChange);
+      this.props.store.setClock();
     }
   }, {
     key: "componentWillUnmount",
@@ -104,7 +107,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Timestamp__WEBPACK_IMPORTED_MODULE_5__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.default, {
         doSearch: this.props.store.setSearchTerm
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArticleList__WEBPACK_IMPORTED_MODULE_1__.default, {
         articles: articles,
@@ -308,6 +311,77 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./lib/components/Timestamp.js":
+/*!*************************************!*\
+  !*** ./lib/components/Timestamp.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _storeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./storeProvider */ "./lib/components/storeProvider.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var Timestamp = /*#__PURE__*/function (_Component) {
+  _inherits(Timestamp, _Component);
+
+  var _super = _createSuper(Timestamp);
+
+  function Timestamp() {
+    _classCallCheck(this, Timestamp);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Timestamp, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "date"
+      }, this.props.timestamp.toString());
+    }
+  }]);
+
+  return Timestamp;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+function extraProps(store) {
+  return {
+    timestamp: store.getState().timestamp
+  };
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_storeProvider__WEBPACK_IMPORTED_MODULE_1__.default)(extraProps)(Timestamp));
+
+/***/ }),
+
 /***/ "./lib/components/storeProvider.js":
 /*!*****************************************!*\
   !*** ./lib/components/storeProvider.js ***!
@@ -355,18 +429,40 @@ var storeProvider = function storeProvider(extraProps) {
   return function (Component) {
     var _class, _temp;
 
-    return _temp = _class = /*#__PURE__*/function (_React$Component) {
-      _inherits(_class, _React$Component);
+    return _temp = _class = /*#__PURE__*/function (_React$PureComponent) {
+      _inherits(_class, _React$PureComponent);
 
       var _super = _createSuper(_class);
 
       function _class() {
+        var _this;
+
         _classCallCheck(this, _class);
 
-        return _super.apply(this, arguments);
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        _this = _super.call.apply(_super, [this].concat(args));
+
+        _defineProperty(_assertThisInitialized(_this), "onStoreChange", function () {
+          _this.forceUpdate();
+        });
+
+        return _this;
       }
 
       _createClass(_class, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+          this.subscriptionId = this.context.store.subscribe(this.onStoreChange);
+        }
+      }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+          this.props.store.unsubscribe(this.subscriptionId);
+        }
+      }, {
         key: "render",
         value: function render() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, _extends({}, this.props, extraProps(this.context.store, this.props), {
@@ -376,7 +472,7 @@ var storeProvider = function storeProvider(extraProps) {
       }]);
 
       return _class;
-    }(react__WEBPACK_IMPORTED_MODULE_0__.Component), _defineProperty(_class, "displayName", "".concat(Component.name, "Container")), _defineProperty(_class, "contextTypes", {
+    }(react__WEBPACK_IMPORTED_MODULE_0__.PureComponent), _defineProperty(_class, "displayName", "".concat(Component.name, "Container")), _defineProperty(_class, "contextTypes", {
       store: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object)
     }), _temp;
   };
@@ -397,7 +493,8 @@ module.exports = class StateApi {
     this.data = {
       articles: this.mapIntoObject(rawData.articles),
       authors: this.mapIntoObject(rawData.authors),
-      searchTerm: ''
+      searchTerm: '',
+      timestamp: new Date()
     };
     this.subscriptions = {};
     this.lastSubscriptionId = 0;
@@ -437,6 +534,13 @@ module.exports = class StateApi {
   };
   notifySubscribers = () => {
     Object.values(this.subscriptions).forEach(cb => cb());
+  };
+  setClock = () => {
+    setInterval(() => {
+      this.mergeWithState({
+        timestamp: new Date()
+      });
+    }, 1000);
   };
 }; // export default StateApi;
 
