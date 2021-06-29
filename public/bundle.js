@@ -256,8 +256,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var SearchBar = /*#__PURE__*/function (_React$Component) {
-  _inherits(SearchBar, _React$Component);
+var SearchBar = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(SearchBar, _React$PureComponent);
 
   var _super = _createSuper(SearchBar);
 
@@ -305,7 +305,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return SearchBar;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0__.PureComponent);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_storeProvider__WEBPACK_IMPORTED_MODULE_2__.default)()(SearchBar));
 
@@ -346,6 +346,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -355,17 +357,40 @@ var Timestamp = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Timestamp);
 
   function Timestamp() {
+    var _this;
+
     _classCallCheck(this, Timestamp);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "timeDisplay", function (timestamp) {
+      return timestamp.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    });
+
+    return _this;
   }
 
   _createClass(Timestamp, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return this.timeDisplay(this.props.timestamp) !== this.timeDisplay(nextProps.timestamp);
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "date"
-      }, this.props.timestamp.toString());
+      }, this.props.timestamp.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      }));
     }
   }]);
 
