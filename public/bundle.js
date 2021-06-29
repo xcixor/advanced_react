@@ -67,10 +67,21 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
 
-    _defineProperty(_assertThisInitialized(_this), "state", _this.props.store.getState());
+    _defineProperty(_assertThisInitialized(_this), "appState", function () {
+      var _this$props$store$get = _this.props.store.getState(),
+          articles = _this$props$store$get.articles,
+          searchTerm = _this$props$store$get.searchTerm;
+
+      return {
+        articles: articles,
+        searchTerm: searchTerm
+      };
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "state", _this.appState());
 
     _defineProperty(_assertThisInitialized(_this), "onStoreChange", function () {
-      _this.setState(_this.props.store.getState());
+      _this.setState(_this.appState());
     });
 
     return _this;
@@ -437,49 +448,33 @@ var Timestamp = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Timestamp);
 
   function Timestamp() {
-    var _this;
-
     _classCallCheck(this, Timestamp);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "timeDisplay", function (timestamp) {
-      return timestamp.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    });
-
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(Timestamp, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps) {
-      return this.timeDisplay(this.props.timestamp) !== this.timeDisplay(nextProps.timestamp);
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "date"
-      }, this.props.timestamp.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      }));
+      }, this.props.timestampDisplay);
     }
   }]);
 
   return Timestamp;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
+_defineProperty(Timestamp, "timeDisplay", function (timestamp) {
+  return timestamp.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+});
+
 function extraProps(store) {
   return {
-    timestamp: store.getState().timestamp
+    timestampDisplay: Timestamp.timeDisplay(store.getState().timestamp)
   };
 }
 
@@ -553,9 +548,15 @@ var storeProvider = function storeProvider() {
 
         _this = _super.call.apply(_super, [this].concat(args));
 
+        _defineProperty(_assertThisInitialized(_this), "usedState", function () {
+          return extraProps(_this.context.store, _this.props);
+        });
+
+        _defineProperty(_assertThisInitialized(_this), "state", _this.usedState());
+
         _defineProperty(_assertThisInitialized(_this), "onStoreChange", function () {
           if (_this.subscriptionId) {
-            _this.forceUpdate();
+            _this.setState(_this.usedState());
           }
         });
 
@@ -576,7 +577,7 @@ var storeProvider = function storeProvider() {
       }, {
         key: "render",
         value: function render() {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, _extends({}, this.props, extraProps(this.context.store, this.props), {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, _extends({}, this.props, this.usedState(), {
             store: this.context.store
           }));
         }
