@@ -1,2 +1,7 @@
 node_modules
 .editorconfig
+public/bundle.js
+public/vendor*
+public/app*
+public/common*
+coverage/

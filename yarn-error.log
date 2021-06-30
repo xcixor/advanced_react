@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn test
+  /usr/bin/node /usr/local/bin/yarn add loadash.pickby
 
 PATH: 
   /home/ptah/Downloads/google-cloud-sdk/bin:/home/ptah/Downloads/google-cloud-sdk/bin:/home/ptah/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/lib/jvm/java-16-oracle/bin:/usr/lib/jvm/java-16-oracle/db/bin
@@ -14,12 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  SyntaxError: /home/ptah/Development/advanced_react/package.json: Unexpected token } in JSON at position 1404
-      at JSON.parse (<anonymous>)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+  Error: https://registry.yarnpkg.com/loadash.pickby: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (events.js:314:20)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (events.js:314:20)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (events.js:420:28)
+      at IncomingMessage.emit (events.js:326:22)
+      at endReadableNT (_stream_readable.js:1241:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -61,6 +66,7 @@ npm manifest:
       "eslint": "^7.29.0",
       "eslint-plugin-react": "^7.24.0",
       "express": "^4.17.1",
+      "lodash.debounce": "^4.0.8",
       "pm2": "^5.1.0",
       "prop-types": "^15.7.2",
       "react": "^17.0.2",
@@ -79,7 +85,9 @@ npm manifest:
     },
     "jest": {
       "verbose": true,
-  
+      "snapshotSerializers": [
+        "enzyme-to-json/serializer"
+      ]
     }
   }
 
@@ -4721,7 +4729,7 @@ Lockfile:
   
   lodash.debounce@^4.0.8:
     version "4.0.8"
-    resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
+    resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
     integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
   
   lodash.escape@^4.0.1:
